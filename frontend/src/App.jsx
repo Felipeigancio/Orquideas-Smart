@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Calendario from "./calendario"; 
-import ProximoRiego from "./proximoRiego";  
+import ProximoRiego from "./ProximoRiego";  
 import axios from "axios";
 import mqtt from "mqtt";
 import "./App.css";

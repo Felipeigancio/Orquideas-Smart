@@ -1,0 +1,44 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql_orquideas
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: "orquideas_db"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - orquideas-net
+
+  backend:
+    build: ./backend
+    container_name: backend_orquideas
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: "123456"
+      DB_NAME: orquideas_db
+    networks:
+      - orquideas-net
+
+  frontend:
+    build: ./frontend
+    container_name: frontend_orquideas
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - orquideas-net
+
+volumes:
+  mysql_data:
+
+networks:
+  orquideas-net:
+
+
